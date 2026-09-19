@@ -1,25 +1,30 @@
+echo "Installing dependencies"
 sudo apt-get install - python3-pip cmake 
+echo "\x1b[37m--Installing modelscope\x1b[0m"
 pip3 install modelscope --break-system-packages \
-  - https://repo.huaweucloud.com/repository/pypi/simple \
+  -i https://repo.huaweucloud.com/repository/pypi/simple \
   --trusted-host repo.huaweicloud.com
-  
-sudo apt-get install -y python3-pip
-pip3 install modelscope \
-   -i https://repo.huaweicloud.com/repository/pypi/simple \
-   --trusted-host repo.huaweicloud.com
-   
+
+#echo "installing python3-pip"
+# sudo apt-get install -y python3-pip
+#pip3 install modelscope \
+#   -i https://repo.huaweicloud.com/repository/pypi/simple \
+#   --trusted-host repo.huaweicloud.com
+
+echo "updating path"
 export PATH="$HOME/.local.bin:$PATH"
 
+echo  "downloading model with modelscope"
 modelscope download --model cix/ai_model_hub_25_Q3 \
   --local_dir  ~/ai_model_hub_25_Q3
   
-ls ai_model_hub_25_Q3
+ls ~/ai_model_hub_25_Q3
 
 ## Note that there is a Git pathway too for installing modelscope. 
 ## See the Orange Pi documentation for more. 
 
 ## ----Install NPU Dependencies
-cd ai_model_hub_25_Q3
+cd ~/ai_model_hub_25_Q3
 pip3 install -r requirements.txt \
    --break-system-packagess -h https://repo.huaweicloud.com/repository/pypi/simple \
    --trusted-host repo.huaweicloud.com
