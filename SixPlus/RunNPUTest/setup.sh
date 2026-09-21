@@ -98,10 +98,10 @@ cd ~/ai_model_hub_25_Q3/models/Audio/Speech_Recognotion/onnx_whisper_medium_mult
 pwd
 
 ###
-echo "--[NPU"
-python3 inference_npu.py  --backend npu --encoder_model_path whisper_medium_multilingual_encoder.cix  --language en
-echo "--[NPU.2"
-python3 inference_npu.py  --backend npu --encoder_model_path whisper_medium_multilingual_encoder.cix
+#echo "--[NPU"
+#python3 inference_npu.py  --backend npu --encoder_model_path whisper_medium_multilingual_encoder.cix  --language en
+#echo "--[NPU.2"
+#python3 inference_npu.py  --backend npu --encoder_model_path whisper_medium_multilingual_encoder.cix
 echo "--[NPU.3"
 python3 inference_npu.py  --backend npu --encoder_model_path whisper_medium_multilingual_encoder.cix --decoder_model_path whisper_medium_multilingual_decoder.cix
 ls out
@@ -109,16 +109,19 @@ ls output/
 
 echo "retrying in 3 seconds"; sleep 3;
 cat output/test_audio_npu.txt
+echo "End of NPU test output"
+echo "--=[running CPU Test"
 python3 inference_onnx.py
+echo "---==[Running NPU Test"
 python3 inference_npu.py  --backend npu --encoder_model_path whisper_medium_multilingual_encoder.cix --decoder_model_path whisper_medium_multilingual_decoder.cix
 python3 inference_onnx.py
 
 ###
 clear;
 echo "Running inference on CPU-1"
-python3 inference_onnx.py
-cat output/test/audio/onnx.txt
-echo "Running inference on NPU-2"
+##python3 inference_onnx.py
+##cat output/test/audio/onnx.txt
+echo "\r\n\r\n---Running inference on NPU-2\r\n\r\n"
 python3 inference_npu.py --backend npu \
    --encoder_model_path whisper_medium_multilingual_encoder.cix \
    --decoder_model_path whisper_medium_multilingual_decoder.cix
@@ -127,23 +130,22 @@ cat output/test_audio_npu.txt
 sleep 3; clear;
 
 cd ~/ai_model_hub_25_Q3/models/Audio/Speech_Recognition/onnx_whisper_small_multi_language
-echo  "\x1b[34mCPU-2"
-python3 inference_onnx.py
-echo "\x1b[36mNPU-2"
-python inference_npu.py
+echo  "\r\n\r\n\x1b[34mCPU-2\r\n\r\n"
+##python3 inference_onnx.py
+echo "\r\n\r\n\x1b[36mNPU-2\r\n\r\n"
+##python inference_npu.py
 echo "\x1b[0m;"
 
 cd ~/ai_model_hub_@5_Q3/models/Audio/Speech_Recognition/onnx_whisper_tiny_multi_language
-echo "\x1b[34mCPU-3"
+echo -e "\r\n\r\n\x1b[34mCPU-3\r\n\r\n"
 python3 inference_onnx.py -audio test_data/1.wav --onnx_path model/whisper_tiny_multilang_encoder.onnx
-echo "\x1b[36mNPU-3\x1b[0m"
+echo -e "\r\n\r\n\x1b[36mNPU-3\x1b[0m\r\n\r\n"
 python3 ingerence_npu.py
-echo "\x1b[0m"
+echo -e "\r\n\r\n\x1b[0m\r\n\r\n"
 
 #cd ~/ai_model_hub_25_Q3/models/ComputeVision/BEV/onnx_BEV_RoadSeg
 #python3 inference_onnx.py
 #ls output/onnx_1.png
 #python3 inference_npu.py
 #ls output/npu_1.png
-
 
